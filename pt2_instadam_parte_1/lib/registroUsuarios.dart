@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'PaginaPrincipal.dart';
 
 class Usuario {
   String nombre;
@@ -56,7 +57,7 @@ class _RegistroUsuarioScreenState extends State<RegistroUsuarioScreen> {
   final nombreController = TextEditingController();
   final correoController = TextEditingController();
 
-  void _registrarUsuario() {
+  void _registrarUsuario(BuildContext context) {
     String nombre = nombreController.text;
     String correo = correoController.text;
 
@@ -69,6 +70,11 @@ class _RegistroUsuarioScreenState extends State<RegistroUsuarioScreen> {
       correoController.clear();
 
       // Puedes agregar aquí una notificación o redirección a otra pantalla
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PaginaPrincipal()),
+      );
     }
   }
 
@@ -76,7 +82,7 @@ class _RegistroUsuarioScreenState extends State<RegistroUsuarioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro de Usuarios'),
+        title: Text('INSTADAM - Registro de Usuarios'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -97,8 +103,10 @@ class _RegistroUsuarioScreenState extends State<RegistroUsuarioScreen> {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _registrarUsuario,
-              child: Text('Registrar'),
+              onPressed: (){
+                _registrarUsuario(context);
+              },
+                child: Text('Registrar'),
             ),
           ],
         ),
