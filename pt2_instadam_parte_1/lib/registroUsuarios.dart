@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'PaginaPrincipal.dart';
+import 'loggingusuarios.dart';
 
 class Usuario {
   String nombre;
@@ -73,7 +73,7 @@ class _RegistroUsuarioScreenState extends State<RegistroUsuarioScreen> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PaginaPrincipal()),
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     }
   }

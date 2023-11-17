@@ -1,7 +1,28 @@
 class Imagen {
-  String imageUrl;
-  String usuario;
-  int likes;
+  String ImageUrl;
+  String Usuario;
+  int Likes;
 
-  Imagen({required this.imageUrl, required this.usuario, this.likes = 0});
+  Imagen({
+    required this.ImageUrl,
+    required this.Usuario,
+    this.Likes = 0,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'ImageUrl': ImageUrl,
+      'Usuario': Usuario,
+      'Likes': Likes,
+    };
+  }
+
+  factory Imagen.fromJson(Map<String, dynamic> json) {
+    return Imagen(
+      ImageUrl: json['ImageUrl'],
+      Usuario: json['Usuario'],
+      Likes: json['Likes'],
+    );
+  }
 }
+

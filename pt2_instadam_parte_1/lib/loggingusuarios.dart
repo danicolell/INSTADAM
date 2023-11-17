@@ -32,7 +32,9 @@ class LoginScreen extends StatelessWidget {
           // Si las credenciales son válidas, navegar a la pantalla principal
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => PaginaPrincipal()),
+            MaterialPageRoute(
+              builder: (context) => PaginaPrincipal(nombreUsuario: nombre),
+            ),
           );
         } else {
           // Mostrar un mensaje de error si las credenciales no coinciden
@@ -50,7 +52,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inicio de Sesión'),
+        title: Text('INSTADAM - Inicio de Sesión'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
