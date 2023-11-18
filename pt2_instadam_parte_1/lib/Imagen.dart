@@ -2,11 +2,13 @@ class Imagen {
   String ImageUrl;
   String Usuario;
   int Likes;
+  List<String> Comentarios;
 
   Imagen({
     required this.ImageUrl,
     required this.Usuario,
     this.Likes = 0,
+    this.Comentarios = const [], // Cambiado a String
   });
 
   Map<String, dynamic> toJson() {
@@ -14,6 +16,7 @@ class Imagen {
       'ImageUrl': ImageUrl,
       'Usuario': Usuario,
       'Likes': Likes,
+      'Comentarios': Comentarios,
     };
   }
 
@@ -22,7 +25,7 @@ class Imagen {
       ImageUrl: json['ImageUrl'],
       Usuario: json['Usuario'],
       Likes: json['Likes'],
+      Comentarios: List<String>.from(json['Comentarios'] ?? ''),
     );
   }
 }
-

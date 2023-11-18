@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'Imagen.dart';
 
 class PaginaPrincipal extends StatefulWidget {
@@ -18,6 +17,7 @@ class PaginaPrincipal extends StatefulWidget {
 
 class _PaginaPrincipalState extends State<PaginaPrincipal> {
   TextEditingController imageUrlController = TextEditingController();
+  TextEditingController comentarioController = TextEditingController();
   List<Imagen> listaDeImagenes = [];
 
   @override
@@ -37,6 +37,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
             ImageUrl: json['ImageUrl'],
             Usuario: json['nNmbreUsuario'],
             Likes: json['Likes'],
+            Comentarios: List<String>.from(json['Comentarios'] ?? []),
           );
         }).toList();
       });
@@ -81,6 +82,24 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
                           Text('${imagen.Likes} Likes'),
                         ],
                       ),
+                      ListTile(
+                        title: Text('Comentarios'),
+                        subtitle: Column(
+                          children: imagen.Comentarios.map((comentario) {
+                            return Text(comentario);
+                          }).toList(),
+                        ),
+                      ),
+                      TextField(
+                        controller: comentarioController,
+                        decoration: InputDecoration(labelText: 'Agregar comentario'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _agregarComentario(index);
+                        },
+                        child: Text('Agregar Comentario'),
+                      ),
                     ],
                   ),
                 );
@@ -118,7 +137,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
 
   void _subirImagen() async {
     String imageUrl = imageUrlController.text;
-    String usuario = widget.nombreUsuario; // Puedes obtener el nombre de usuario de la sesión actual
+    String usuario = widget.nombreUsuario;
 
     if (imageUrl.isNotEmpty) {
       Imagen nuevaImagen = Imagen(ImageUrl: imageUrl, Usuario: usuario);
@@ -138,6 +157,17 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
     _guardarEnJSON();
   }
 
+  void _agregarComentario(int index) {
+    setState(() {
+      String comentario = comentarioController.text;
+      listaDeImagenes[index].Comentarios = List.from(listaDeImagenes[index].Comentarios)
+        ..add(comentario); // Agregar el comentario a la lista existente
+    });
+
+    _guardarEnJSON();
+  }
+
+
   Future<void> _guardarEnJSON() async {
     try {
       final directory = await getApplicationDocumentsDirectory();
@@ -154,5 +184,3 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
     }
   }
 }
-
-
